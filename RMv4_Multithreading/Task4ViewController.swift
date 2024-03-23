@@ -56,9 +56,19 @@ class RMOperation: RMOperationProtocol {
         isExecuting = true
         DispatchQueue.global().async {
             self.completionBlockHandler?()
-            self.isExecuting = false
-            self.isFinished = true
         }
+        
+// Димин вариант, нужно отслеживать стопроцентное выполнение операции, чтобы поменять флаг, поэтому ДиспатчГруп
+//        let globalQueue = DispatchQueue.global(qos: priority)
+//        let group = DispatchGroup()
+//        globalQueue.async(group: group) {
+//            self.isExecuting = true
+//            self.completionBlock?()
+//        }
+//        group.wait()
+//        group.notify(queue: globalQueue) {
+//            self.isFinished = true
+//        }
     }
 }
 

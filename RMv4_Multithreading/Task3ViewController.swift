@@ -118,6 +118,7 @@ class AsyncWorker {
                 .resume()
         }
 
+        // group.wait() // у Димы, выяснить, зачем
         group.notify(queue: .main) {
             completion(posts)
         }
@@ -214,7 +215,7 @@ final class FirstPerson {
         }
 
         DispatchQueue.global().async {
-            self.isDifferentDirections = true
+            self.isDifferentDirections.toggle()
             print("FirstPerson смог пройти прямо")
             // semaphore.signal()
         }
