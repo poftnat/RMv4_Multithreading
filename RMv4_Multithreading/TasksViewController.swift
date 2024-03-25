@@ -32,7 +32,6 @@ final class FirstTaskViewController: UIViewController {
 // Насколько я понимаю, Task.detached будет всегда выделять задаче новый поток, но очереди DispatchQueue.global() могут
 // использовать и главный поток тоже.
 // Далее поменять у Task.detached приоритет на priority: .userInitiated
-// Установка приоритета не всегда означает вероятность выполнения этой задачи в приоритетном режиме.
 
 final class ThirdTaskViewController: UIViewController {
     override func viewDidLoad() {
@@ -129,15 +128,15 @@ class NetworkService {
 
 final class SixthTaskViewController: UIViewController {
     var networkService = NetworkService()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         Task.init {
             print(await fetchMessagesResult())
         }
     }
-
+    
     func fetchMessagesResult() async -> [Message] {
         do {
             return try await withCheckedThrowingContinuation { continuation in
@@ -160,6 +159,7 @@ final class SixthTaskViewController: UIViewController {
 enum CustomError: Error {
     case emptyMessage
 }
+
 
 // ЗАДАЧА 7.
 // Наберите задачу. Разберитесь как работает. Отмените задачу fetchTask.
@@ -209,7 +209,7 @@ final class EightTaskViewController: UIViewController {
 
     func printMessage() async {
         let string = await withTaskGroup(of: String.self) { group -> String in
-
+            
             group.addTask {
                 "Hello"
             }
